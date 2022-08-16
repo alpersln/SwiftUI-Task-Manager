@@ -10,6 +10,7 @@ import SwiftUI
 struct AddNewTask: View {
     @EnvironmentObject var taskModel:TaskViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.self) var env
     @State var txf = ""
     var body: some View {
         VStack(alignment:.leading,spacing: 12) {
@@ -63,17 +64,24 @@ struct AddNewTask: View {
                      + ", " + taskModel.taskDeadline.formatted(date: .omitted, time: .shortened))
                     .frame(maxWidth:.infinity)
                     .font(.callout.weight(.semibold))
-                    .padding()
+                    //.padding()
 
             }.frame(maxWidth:.infinity,alignment: .leading)
             .overlay(alignment: .bottomTrailing){
-                Button{
-                    
-                } label: {
-                    Image(systemName: "calendar")
-                        .foregroundColor(.black)
-                        .font(.title2)
+                
+
+                    Button{
+                        taskModel.showDatePicker.toggle()
+                        print(taskModel.showDatePicker)
+
+                        print("calender pickk")
+                    } label: {
+                        Image(systemName: "calendar")
+                            .foregroundColor(.black)
+                            .font(.title2)
                 }
+
+                
             }
             //overlay m b h
             Divider()
@@ -110,7 +118,9 @@ struct AddNewTask: View {
             Divider()
             
             Button{
-                print("clicked")
+                if taskModel.addTask(context: env.managedObjectContext){
+                    env.dismiss()
+                }
             }label: {
                 Text("Save")
                     .padding()
@@ -123,11 +133,24 @@ struct AddNewTask: View {
                     }
             }.frame(maxHeight:.infinity, alignment: .bottom)
                 .padding(.vertical,8)
-                .disabled(taskModel.taskTitle == "")
-                .opacity(taskModel.taskTitle == "" ? 0.6 : 1 )
+              //  .disabled(taskModel.taskTitle == "")
+            //    .opacity(taskModel.taskTitle == "" ? 0.6 : 1 )
         }
         .frame(maxWidth:.infinity,alignment: .leading)
         .padding()
+        .overlay{
+            if taskModel.showDatePicker {
+                
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .ignoresSafeArea()
+                    .onTapGesture{
+                        taskModel.showDatePicker = false
+                    }
+                
+                DatePicker.init("",selection: $taskModel.taskDeadline,in:Date.now...Date.distantFuture).labelsHidden()
+            }
+        }
     }
 }
 
