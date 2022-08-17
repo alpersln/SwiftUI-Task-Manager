@@ -12,6 +12,8 @@ struct Home: View {
     @Namespace var tabAnimation
     @State var isShowingSheet = false
     
+    @Environment(\.self) var env
+    
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath:\Task.deadline, ascending: false)], predicate: nil, animation: .easeInOut) var tasks: FetchedResults<Task>
     
     var body: some View {
@@ -99,7 +101,10 @@ struct Home: View {
                 
                 if !task.isCompleted{
                     Button{
-                        
+                        taskModel.editTask = task
+                        isShowingSheet.toggle()
+                 //       taskModel.openEditTask = true
+                        taskModel.setupTask()
                     }label: {
                         Image(systemName: "square.and.pencil")
                             .foregroundColor(.black)
@@ -128,7 +133,8 @@ struct Home: View {
                 
                 if !task.isCompleted{
                     Button{
-                        
+                        task.isCompleted.toggle()
+                        try? env.managedObjectContext.save()
                     }label: {
                         Circle()
                             .strokeBorder(.black,lineWidth: 1.5)

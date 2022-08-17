@@ -50,7 +50,7 @@ struct AddNewTask: View {
                 Text("Task Title")
                     .font(.caption)
                     .foregroundColor(.gray)
-                TextField("Enter Task",text: $txf)
+                TextField("Enter Task",text: $taskModel.taskTitle)
                     .frame(maxWidth:.infinity)
                     .padding()
                     
