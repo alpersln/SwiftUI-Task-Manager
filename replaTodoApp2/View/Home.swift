@@ -20,28 +20,47 @@ struct Home: View {
         ScrollView {
             VStack(alignment:.leading,spacing: 8) {
                 
-                Text("Welcome Alper!")
-                    .font(.title2.bold())
+                HStack{
+                    Image(systemName: "person.fill")
+                        
+                        .resizable()
+                        .frame(width:40, height: 40)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(.blue.opacity(0.7)))
+                    Text("Hi, Duru")
+                        .font(.largeTitle.weight(.semibold))
+                        .padding()
+                    Spacer()
+                    
+
+                }
 
                 CustomBar()
                     .padding()
                 HStack {
                     Text("Tasks")
-                        .font(.largeTitle.weight(.bold))
+                        .font(.title.weight(.bold))
                     Spacer()
-                    
+//                    Button("delete"){
+//                        taskModel.toggleCardMenu.toggle()
+//                        print(taskModel.toggleCardMenu)
+//                        
+//                       
+//                    }
+                    Spacer()
                     Button {
+                        taskModel.resetData()
                         isShowingSheet.toggle()
                     } label: {
                         Image(systemName: "plus.circle.fill").font(.system(size: 32.0))
                     }
                     
                     .sheet(isPresented: $isShowingSheet) {
-                     //   taskModel.resetData
+                        
                         AddNewTask()
                             .environmentObject(taskModel)
                     }
                 }
+                
                 TaskView()
             }                    .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -76,9 +95,24 @@ struct Home: View {
         }
     }
     
+    private func deleteItems2(_ item: Task) {
+        if let ndx = tasks.firstIndex(of: item) {
+            env.managedObjectContext.delete(tasks[ndx])
+        do {
+            try env.managedObjectContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+      }
+    }
+    
+    
     @ViewBuilder
     func TaskView()->some View{
-        LazyVStack(spacing:20){
+        LazyVGrid(columns:[GridItem(),GridItem()]){
             DynamicFilteredView(currentTab: taskModel.currentTab){
                 (task:Task) in
                 TaskRowView(task: task)
@@ -97,20 +131,31 @@ struct Home: View {
                     .background{
                         Capsule().fill(.white.opacity(0.3))
                     }
-                
+                Spacer()
+
+                if taskModel.toggleCardMenu {
+
+
+
+
+                }
                 Spacer()
                 
-                if !task.isCompleted{
-                    Button{
-                        taskModel.editTask = task
-                        isShowingSheet.toggle()
-                 //       taskModel.openEditTask = true
-                        taskModel.setupTask()
-                    }label: {
-                        Image(systemName: "square.and.pencil")
-                            .foregroundColor(.black)
-                    }
-                }
+                Menu {
+                                Button("Edit", action: {
+                                    taskModel.editTask = task
+                                    isShowingSheet.toggle()
+                             //       taskModel.openEditTask = true
+                                    taskModel.setupTask()
+                                })
+                                Button("Delete", action: {deleteItems2(task)})
+                                Button("Cancel", action: {})
+                            } label: {
+                            Image(systemName: "square.and.pencil")
+                                    
+                                    .font(.system(size: 26.0, weight: .bold))
+                                    .foregroundColor(.black)
+                        }
             }
             Text(task.title ?? "")
                 .font(.title2.bold())

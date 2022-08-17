@@ -42,7 +42,7 @@ struct DynamicFilteredView<Content: View,T>: View where T: NSManagedObject {
             //This will fetch tasks between tomorrow and future
             //0-false, 1-true
             predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) < %@ AND isCompleted == %i", argumentArray: [today, tomorrow, 0])
-        } else if currentTab == "Failed" {
+        } else if currentTab == "Daily" {
             let today = calendar.startOfDay(for: Date())
             let past = Date.distantPast
             
@@ -67,17 +67,22 @@ struct DynamicFilteredView<Content: View,T>: View where T: NSManagedObject {
     }
     
     var body: some View {
-        Group {
-            if request.isEmpty {
-                Text("No tasks found!")
-                    .font(.system(size: 16))
-                    .fontWeight(.light)
-                    .offset(y: 100)
-            } else {
-                ForEach(request, id: \.objectID) { object in
-                    self.content(object)
-                }
+        
+        
+            Group {
+                    if request.isEmpty {
+                        Text("No tasks found!")
+                            
+                            .font(.system(size: 16))
+                            .fontWeight(.light)
+                            .offset(y: 100)
+                    } else {
+                        ForEach(request, id: \.objectID) { object in
+                            self.content(object)
+                        }
+                    }
             }
-        }
+        
+        
     }
 }

@@ -20,6 +20,8 @@ class TaskViewModel : ObservableObject {
     
     @Published var editTask : Task?
     
+    @Published var toggleCardMenu = false
+    
     
     func addTask(context:NSManagedObjectContext) -> Bool{
         
