@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8247485128AD24D900A43848 /* FilteredCustomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8247485028AD24D900A43848 /* FilteredCustomBarView.swift */; };
 		8253997728AA592800769682 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253997628AA592800769682 /* TaskViewModel.swift */; };
 		82D38F6A28AA6532000C8F75 /* AddNewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D38F6928AA6532000C8F75 /* AddNewTask.swift */; };
 		82DE9FD428A92DF000B20108 /* replaTodoApp2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DE9FD328A92DF000B20108 /* replaTodoApp2App.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8247485028AD24D900A43848 /* FilteredCustomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCustomBarView.swift; sourceTree = "<group>"; };
 		8253997628AA592800769682 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		82D38F6928AA6532000C8F75 /* AddNewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTask.swift; sourceTree = "<group>"; };
 		82DE9FD028A92DF000B20108 /* replaTodoApp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = replaTodoApp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +148,7 @@
 			children = (
 				82DEA00428A948D700B20108 /* Home.swift */,
 				82D38F6928AA6532000C8F75 /* AddNewTask.swift */,
+				8247485028AD24D900A43848 /* FilteredCustomBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8247485128AD24D900A43848 /* FilteredCustomBarView.swift in Sources */,
 				82DE9FDD28A92DF100B20108 /* Persistence.swift in Sources */,
 				8253997728AA592800769682 /* TaskViewModel.swift in Sources */,
 				82DE9FD628A92DF000B20108 /* ContentView.swift in Sources */,
