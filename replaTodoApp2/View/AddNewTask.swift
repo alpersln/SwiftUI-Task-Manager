@@ -14,7 +14,7 @@ struct AddNewTask: View {
     @State var txf = ""
     var body: some View {
         VStack(alignment:.leading,spacing: 12) {
-            Text("Edit Task")
+            Text(taskModel.openEditTask ? "Edit Task" : "Add Task")
                 .font(.title3.bold())
                 .frame(maxWidth: .infinity)
             VStack(alignment:.leading){
@@ -22,7 +22,7 @@ struct AddNewTask: View {
                     .font(.caption)
                     .foregroundColor(.gray)
                 let colors: [String] =
-                ["Red","Pink","Purple"]
+                ["Grey","Brown","DarkGreen","LightGreen","LightPurple","Orange","Pink","Purple","Red","Turquoise","Yellow"]
                 HStack(spacing:10){
                     ForEach(colors, id: \.self){
                         color in
@@ -117,10 +117,13 @@ struct AddNewTask: View {
             }.frame(maxWidth:.infinity,alignment: .leading)
             Divider()
             
-            Button{
+            Button{                            
+                
                 if taskModel.addTask(context: env.managedObjectContext){
+
                     env.dismiss()
                 }
+
             }label: {
                 Text("Save")
                     .padding()

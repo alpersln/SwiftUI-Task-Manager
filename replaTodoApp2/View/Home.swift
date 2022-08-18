@@ -26,7 +26,7 @@ struct Home: View {
                         .resizable()
                         .frame(width:40, height: 40)
                         .background(RoundedRectangle(cornerRadius: 8).fill(.blue.opacity(0.7)))
-                    Text("Hi, Duru")
+                    Text("Hi, Alper")
                         .font(.largeTitle.weight(.semibold))
                         .padding()
                     Spacer()
@@ -49,7 +49,8 @@ struct Home: View {
                     Spacer()
                     Button {
                         taskModel.resetData()
-                        isShowingSheet.toggle()
+                        
+                        isShowingSheet = true
                     } label: {
                         Image(systemName: "plus.circle.fill").font(.system(size: 32.0))
                     }
@@ -58,6 +59,8 @@ struct Home: View {
                         
                         AddNewTask()
                             .environmentObject(taskModel)
+                    }.onAppear{
+                        taskModel.editTask = nil
                     }
                 }
                 
@@ -117,7 +120,7 @@ struct Home: View {
                 (task:Task) in
                 TaskRowView(task: task)
             }
-        }.padding()
+        }
     }
     
     @ViewBuilder
@@ -143,15 +146,22 @@ struct Home: View {
                 
                 Menu {
                                 Button("Edit", action: {
-                                    taskModel.editTask = task
-                                    isShowingSheet.toggle()
-                             //       taskModel.openEditTask = true
-                                    taskModel.setupTask()
+                                    taskModel.openEditTask = true
+                                    if taskModel.openEditTask{
+                                        taskModel.editTask = task
+                                 
+                                       
+                                        taskModel.setupTask()
+                                        isShowingSheet = true
+                                    }
+                                    
+                     
+                                    
                                 })
                                 Button("Delete", action: {deleteItems2(task)})
                                 Button("Cancel", action: {})
                             } label: {
-                            Image(systemName: "square.and.pencil")
+                            Image(systemName: "ellipsis.circle")
                                     
                                     .font(.system(size: 26.0, weight: .bold))
                                     .foregroundColor(.black)
@@ -166,7 +176,7 @@ struct Home: View {
                     Label{
                         Text((task.deadline ?? Date()).formatted(date: .long, time:.omitted))
                     } icon: {
-                        Image(systemName: "calender")
+                        Image(systemName: "calendar")
                     }
                     .font(.caption)
                     Label{

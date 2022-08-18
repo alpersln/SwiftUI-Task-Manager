@@ -26,15 +26,20 @@ class TaskViewModel : ObservableObject {
     func addTask(context:NSManagedObjectContext) -> Bool{
         
         var task:Task!
-        if let editTask = editTask {
+//        if let editTask = editTask {
+//            task = editTask
+//        } else {
+//            task = Task(context: context)
+//        }
+        if editTask != nil && openEditTask == true {
             task = editTask
         } else {
             task = Task(context: context)
         }
-        
       
         task.title = taskTitle
         task.color = taskColor
+        //== "" ? "Yellow" : taskColor
         task.deadline = taskDeadline
         task.type = taskType
         task.isCompleted = false
@@ -47,18 +52,22 @@ class TaskViewModel : ObservableObject {
     
     func resetData(){
         taskType = "Basic"
-        taskColor = ""
+        taskColor = "Yellow"
         taskTitle = ""
         taskDeadline = Date()
+        openEditTask = false
     }
     
     func setupTask(){
-        if let editTask = editTask {
-            taskType = editTask.type ?? "Basic"
-            taskColor = editTask.color ?? "Pink"
-            taskTitle = editTask.title ?? ""
-            taskDeadline = editTask.deadline ?? Date()
-        }
+       
+            if let editTask = editTask {
+                taskType = editTask.type ?? "Basic"
+                taskColor = editTask.color ?? "Pink"
+                taskTitle = editTask.title ?? ""
+                taskDeadline = editTask.deadline ?? Date()
+            }
+        
+
 
     }
     
