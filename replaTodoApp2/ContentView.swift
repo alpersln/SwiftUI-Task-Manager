@@ -9,11 +9,19 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @AppStorage("loginUsernameKey") var loginUsernameKey = ""
+    @AppStorage("isLoggedIn") var isLoggedIn = false
 
     var body: some View {
+        if isLoggedIn {
             Home()
-            .navigationBarTitle("Task Manager")
-            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            GetUsernameView()
+        }
+        
+//            Home()
+//            .navigationBarTitle("Task Manager")
+//            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

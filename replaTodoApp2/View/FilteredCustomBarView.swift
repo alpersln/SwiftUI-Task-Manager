@@ -52,12 +52,12 @@ struct DynamicFilteredView<Content: View,T>: View where T: NSManagedObject {
             //This will fetch failed tasks between past and today
             //0-false, 1-true
             predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) < %@ AND isCompleted == %i", argumentArray: [past, today, 0])
-
+            
         } else {
             //This will fetch done tasks
             //0-false, 1-true
             predicate = NSPredicate(format: "isCompleted == %i", argumentArray: [1])
-
+            
         }
         
         // Initializing Request With NSPredicate
@@ -69,20 +69,23 @@ struct DynamicFilteredView<Content: View,T>: View where T: NSManagedObject {
     var body: some View {
         
         
-            Group {
-                    if request.isEmpty {
-                        Text("No tasks found!")
-                            
-                            .font(.system(size: 16))
-                            .fontWeight(.light)
-                            .offset(y: 100)
-                    } else {
-                        ForEach(request, id: \.objectID) { object in
-                            self.content(object)
-                        }
-                    }
+        Group{
+            if request.isEmpty {
+                
+                Text("No tasks found!")
+                
+                    .font(.system(size: 16))
+                    .fontWeight(.light)
+                    .offset(x: 90)
+                
+                
+            } else {
+                ForEach(request, id: \.objectID) { object in
+                    self.content(object)
+                }
             }
-        
+            
+        }
         
     }
 }

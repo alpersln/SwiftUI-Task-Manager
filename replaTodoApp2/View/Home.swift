@@ -11,6 +11,8 @@ struct Home: View {
     @StateObject var taskModel : TaskViewModel = .init()
     @Namespace var tabAnimation
     @State var isShowingSheet = false
+    @AppStorage("loginUsernameKey") var loginUsernameKey = ""
+
     
     @Environment(\.self) var env
     
@@ -26,7 +28,7 @@ struct Home: View {
                         .resizable()
                         .frame(width:40, height: 40)
                         .background(RoundedRectangle(cornerRadius: 8).fill(.blue.opacity(0.7)))
-                    Text("Hi, Alper")
+                    Text("Hi, \(loginUsernameKey)")
                         .font(.largeTitle.weight(.semibold))
                         .padding()
                     Spacer()
@@ -65,8 +67,7 @@ struct Home: View {
                 }
                 
                 TaskView()
-            }                    .frame(maxWidth: .infinity, alignment: .leading)
-                
+            }.frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding()
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		821DD65228B4EB4D00416077 /* GetUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DD65128B4EB4D00416077 /* GetUsernameView.swift */; };
 		8247485128AD24D900A43848 /* FilteredCustomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8247485028AD24D900A43848 /* FilteredCustomBarView.swift */; };
 		8253997728AA592800769682 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8253997628AA592800769682 /* TaskViewModel.swift */; };
 		82D38F6A28AA6532000C8F75 /* AddNewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D38F6928AA6532000C8F75 /* AddNewTask.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		821DD65128B4EB4D00416077 /* GetUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsernameView.swift; sourceTree = "<group>"; };
 		8247485028AD24D900A43848 /* FilteredCustomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredCustomBarView.swift; sourceTree = "<group>"; };
 		8253997628AA592800769682 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		82D38F6928AA6532000C8F75 /* AddNewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTask.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				82DEA00428A948D700B20108 /* Home.swift */,
 				82D38F6928AA6532000C8F75 /* AddNewTask.swift */,
 				8247485028AD24D900A43848 /* FilteredCustomBarView.swift */,
+				821DD65128B4EB4D00416077 /* GetUsernameView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				82D38F6A28AA6532000C8F75 /* AddNewTask.swift in Sources */,
 				82DE9FD428A92DF000B20108 /* replaTodoApp2App.swift in Sources */,
 				82DE9FE028A92DF100B20108 /* replaTodoApp2.xcdatamodeld in Sources */,
+				821DD65228B4EB4D00416077 /* GetUsernameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
