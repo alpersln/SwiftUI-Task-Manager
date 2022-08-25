@@ -12,7 +12,7 @@ struct Home: View {
     @Namespace var tabAnimation
     @State var isShowingSheet = false
     @AppStorage("loginUsernameKey") var loginUsernameKey = ""
-
+    
     
     @Environment(\.self) var env
     
@@ -24,7 +24,7 @@ struct Home: View {
                 
                 HStack{
                     Image(systemName: "person.fill")
-                        
+                    
                         .resizable()
                         .frame(width:40, height: 40)
                         .background(RoundedRectangle(cornerRadius: 8).fill(.blue.opacity(0.7)))
@@ -33,21 +33,14 @@ struct Home: View {
                         .padding()
                     Spacer()
                     
-
+                    
                 }
-
+                
                 CustomBar()
                     .padding()
                 HStack {
                     Text("Tasks")
                         .font(.title.weight(.bold))
-                    Spacer()
-//                    Button("delete"){
-//                        taskModel.toggleCardMenu.toggle()
-//                        print(taskModel.toggleCardMenu)
-//                        
-//                       
-//                    }
                     Spacer()
                     Button {
                         taskModel.resetData()
@@ -63,6 +56,7 @@ struct Home: View {
                             .environmentObject(taskModel)
                     }.onAppear{
                         taskModel.editTask = nil
+                        taskModel.requestAuthorization()
                     }
                 }
                 
@@ -74,7 +68,7 @@ struct Home: View {
     
     @ViewBuilder
     func CustomBar()->some View{
-        let tabs = ["Today","Upcoming","Daily"]
+        let tabs = ["Today","Upcoming","Daily","Completed"]
         HStack(spacing:10){
             ForEach(tabs,id:\.self){  tab in
                 Text(tab)
@@ -102,15 +96,15 @@ struct Home: View {
     private func deleteItems2(_ item: Task) {
         if let ndx = tasks.firstIndex(of: item) {
             env.managedObjectContext.delete(tasks[ndx])
-        do {
-            try env.managedObjectContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            do {
+                try env.managedObjectContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
-      }
     }
     
     
@@ -136,37 +130,26 @@ struct Home: View {
                         Capsule().fill(.white.opacity(0.3))
                     }
                 Spacer()
-
-                if taskModel.toggleCardMenu {
-
-
-
-
-                }
-                Spacer()
                 
                 Menu {
-                                Button("Edit", action: {
-                                    taskModel.openEditTask = true
-                                    if taskModel.openEditTask{
-                                        taskModel.editTask = task
-                                 
-                                       
-                                        taskModel.setupTask()
-                                        isShowingSheet = true
-                                    }
-                                    
-                     
-                                    
-                                })
-                                Button("Delete", action: {deleteItems2(task)})
-                                Button("Cancel", action: {})
-                            } label: {
-                            Image(systemName: "ellipsis.circle")
-                                    
-                                    .font(.system(size: 26.0, weight: .bold))
-                                    .foregroundColor(.black)
+                    Button("Edit", action: {
+                        taskModel.openEditTask = true
+                        if taskModel.openEditTask{
+                            taskModel.editTask = task
+                            
+                            
+                            taskModel.setupTask()
+                            isShowingSheet = true
                         }
+                    })
+                    Button("Delete", action: {deleteItems2(task)})
+                    Button("Cancel", action: {})
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                    
+                        .font(.system(size: 26.0, weight: .bold))
+                        .foregroundColor(.black)
+                }
             }
             Text(task.title ?? "")
                 .font(.title2.bold())

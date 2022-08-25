@@ -11,7 +11,7 @@ struct AddNewTask: View {
     @EnvironmentObject var taskModel:TaskViewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.self) var env
-    @State var txf = ""
+    
     var body: some View {
         VStack(alignment:.leading,spacing: 12) {
             Text(taskModel.openEditTask ? "Edit Task" : "Add Task")
@@ -55,6 +55,8 @@ struct AddNewTask: View {
                     .padding()
                     
             }
+            
+            
             Divider()
             VStack(alignment: .leading,spacing: 12){
                 Text("Task Deadline")
@@ -80,8 +82,6 @@ struct AddNewTask: View {
                             .foregroundColor(.black)
                             .font(.title2)
                 }
-
-                
             }
             //overlay m b h
             Divider()
@@ -117,10 +117,19 @@ struct AddNewTask: View {
             }.frame(maxWidth:.infinity,alignment: .leading)
             Divider()
             
-            Button{                            
+            Button{
+                
+                let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: taskModel.taskDeadline)
+                guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
+                taskModel.createLocalNotification(title: taskModel.taskTitle, hour: hour, minute: minute) { error in
+                    print(minute)
+                    if error != nil {
+                        print("notifficationda bisiler oldu")
+                    }
+                }
                 
                 if taskModel.addTask(context: env.managedObjectContext){
-
+                    
                     env.dismiss()
                 }
 
