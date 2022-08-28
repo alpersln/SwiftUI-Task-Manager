@@ -124,7 +124,7 @@ struct AddNewTask: View {
                 taskModel.createLocalNotification(title: taskModel.taskTitle, hour: hour, minute: minute) { error in
                     print(minute)
                     if error != nil {
-                        print("notifficationda bisiler oldu")
+                        print("error notific")
                     }
                 }
                 
@@ -160,7 +160,7 @@ struct AddNewTask: View {
                         taskModel.showDatePicker = false
                     }
                 
-                DatePicker.init("",selection: $taskModel.taskDeadline,in:Date.now...Date.distantFuture).labelsHidden()
+                DatePicker.init("",selection: $taskModel.taskDeadline,in:Date.distantPast...Date.distantFuture).labelsHidden()
             }
         }
     }

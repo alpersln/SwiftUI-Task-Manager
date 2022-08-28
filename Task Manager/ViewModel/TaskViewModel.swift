@@ -105,12 +105,12 @@ class TaskViewModel : ObservableObject {
         dateComponents.hour = hour
         dateComponents.minute = minute
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = title
+        notificationContent.title = "Task Manager"
         notificationContent.sound = .default
-        notificationContent.body = "Check your task 🤩"
+        notificationContent.body = title
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: trigger)
         
@@ -120,6 +120,6 @@ class TaskViewModel : ObservableObject {
     func deleteLocalNotifications(identifiers: [String]) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
     }
-    //----------------------------- NOTIFICATION------------------------
+    //--------------------------- NOTIFICATION------------------------
 
 }

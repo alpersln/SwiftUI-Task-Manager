@@ -56,7 +56,12 @@ struct DynamicFilteredView<Content: View,T>: View where T: NSManagedObject {
 //
 //        }
         else if currentTab == "Done"{
-            predicate =  NSPredicate(format: "isCompleted == %i", argumentArray: [1])
+            
+            let past = Date.distantPast
+            let tomorrow = Date.distantFuture
+            let filterKey = "deadline"
+
+            predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) < %@ AND isCompleted == %i", argumentArray: [past, tomorrow, 1])
 
         }
         else {
