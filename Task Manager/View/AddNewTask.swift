@@ -119,9 +119,9 @@ struct AddNewTask: View {
             
             Button{
                 
-                let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: taskModel.taskDeadline)
-                guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
-                taskModel.createLocalNotification(title: taskModel.taskTitle, hour: hour, minute: minute) { error in
+                let dateComponents = Calendar.current.dateComponents([.day,.hour, .minute], from: taskModel.taskDeadline)
+                guard let hour = dateComponents.hour, let minute = dateComponents.minute, let day = dateComponents.day else { return }
+                taskModel.createLocalNotification(title: taskModel.taskTitle,day: day, hour: hour, minute: minute) { error in
                     print(minute)
                     if error != nil {
                         print("error notific")

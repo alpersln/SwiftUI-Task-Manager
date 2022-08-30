@@ -54,7 +54,7 @@ class TaskViewModel : ObservableObject {
     
     func resetData(){
         taskType = "Basic"
-        taskColor = "Yellow"
+        taskColor = "Purple"
         taskTitle = ""
         taskDeadline = Date()
         openEditTask = false
@@ -100,10 +100,11 @@ class TaskViewModel : ObservableObject {
         }
     }
     
-    func createLocalNotification(title: String, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
+    func createLocalNotification(title: String,day:Int, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
         var dateComponents = DateComponents()
         dateComponents.hour = hour
         dateComponents.minute = minute
+        dateComponents.day = day
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
